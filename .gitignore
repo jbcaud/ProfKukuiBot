@@ -1,0 +1,9 @@
+.env
+node_modules
+.DS*
+._*
+*.log
+.pid_log
+*.txt
+*.bat
+*.csv
