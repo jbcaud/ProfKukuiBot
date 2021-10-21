@@ -5,6 +5,20 @@ const fs = require('fs');
 const http = require('http');
 const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 const csv = require('@fast-csv/parse');
+const net = require("net");
+//const server = net.createServer();
+// server.listen(7788, function() {
+//     console.log("Server listening to port %j", server.address());
+// });
+const socket = net.Socket();
+socket.connect(12345);
+socket.write("hello");
+// socket.on("data", function(d) {
+//     console.log("Data from  %s : %s", remoteAddress, d);
+// });
+// server.on("connection", function(socket) {
+//     const remoteAddress = socket.remoteAddress;
+// });
 
 // Define configuration options
 //obtained from env file
