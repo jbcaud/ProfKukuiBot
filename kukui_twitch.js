@@ -46,8 +46,7 @@ client.connect();
 //instantiate variables to be used
 var printOnly = new Map();
 waitingForCatch = false;
-global.orig;
-global.auth, global.api, global.apiFollow;
+let wildEncounter = "";
 
 //new encounter every 5-10 minutes
 setInterval(encounter, 5000);
@@ -82,6 +81,7 @@ function onMessageHandler (target, context, msg, self) {
     }//end of if
     else if (commandName == "!catch" && waitingForCatch){
         client.say(opts.channels[0], "Good job!");
+        socket.write(wildEncounter + target);
         waitingForCatch = false;
     }
     else{

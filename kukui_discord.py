@@ -1,9 +1,10 @@
+#built in Python 3.10
 import discord
 import os
 from dotenv import load_dotenv
 import socket
-import threading
 import time
+import multiprocessing as mp
 
 client = discord.Client()
 load_dotenv()
@@ -44,22 +45,21 @@ def server_setup(arg, kill):
 def client_start():
     client.run(TOKEN)
 
-kill = threading.Event()
-t1 = threading.Thread(target = server_setup, args = (1, kill))
-t2 = threading.Thread(target = client_start)
+event = mp.Event()
+t1 = mp.Process(target = server_setup, args = (1, event))
+t2 = mp.Process(target = client_start)
 
+if __name__ == '__main__':
+    t1.start()
+    t2.start()
 
-t1.start()
-time.sleep(.5)
-t2.start()
-
-try:
-    while(1):
-        time.sleep(.5)
-except(KeyboardInterrupt):
-    kill.set()
-t1.join()
-t2.join()
+    try:
+        while(1):
+            time.sleep(.5)
+    except(KeyboardInterrupt):
+        event.set()
+    t1.terminate()
+    t2.terminate()
 
 
 
